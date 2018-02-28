@@ -39,7 +39,7 @@ while(!in.eof())
                     (*tail)->next=NULL;
                     return;}
             }
-            else {cout<<"Файл <"<<(*tail)->name<<"> не допустимого размера. Пропуск файла."<<endl;
+            else {cout<<"Файл <"<<(*tail)->name<<"> недопустимого размера. Пропуск файла."<<endl;
                 size_of_all=size_of_all-(*tail)->size_of_file;
                 (*tail)=temp;
                 (*tail)->next=NULL;
@@ -122,10 +122,14 @@ int main()
         disk *head=new disk;
         head->next=NULL;
         disk *tail=head;
-read_file(&tail);
-delete_file(&head);
-add_file(&head,&tail);
-show_all(head);
+ read_file(&tail);
+    int selection;
+    do{cout<<"\tВыберите действие:"<<endl<<"\t1)Добавить файл\n\t2)Удалить файл\n\t3)Просмотр содержимого диска\n\t4)Выход\n";
+    cin>>selection;
+    switch(selection){
+        case 2:delete_file(&head);break;
+        case 1:add_file(&head,&tail);break;
+        case 3:show_all(head);break;}} while(selection!=4);
     system("pause");
     return 0;
 }
