@@ -8,7 +8,7 @@ struct disk {
     string name;
  int size_of_sector=0;
  int size_of_file=0;
- bool Empty;
+ bool Empty=1;
  disk *next;
 };
 void read_file(disk **tail){
@@ -27,17 +27,19 @@ while(!in.eof())
             (*tail)->next=NULL;
             (*tail)->size_of_sector=(*tail)->size_of_file;
             temp=(*tail);
-            cout<<(*tail)->name<<" "<<(*tail)->size_of_file<<endl;
+                if(size_of_all>360)
+                    {cout<<"Закончилось место на диске.Прекращаем чтение."<<endl;
+                    size_of_all=size_of_all-(*tail)->size_of_file;
+                    (*tail)=temp;
+                    (*tail)->next=NULL;
+                    return;}
             }
-            else {cout<<"Файл: "<<(*tail)->name<<" не допустимого размера. Пропуск файла."<<endl;
+            else {cout<<"Файл <"<<(*tail)->name<<"> не допустимого размера. Пропуск файла."<<endl;
                 size_of_all=size_of_all-(*tail)->size_of_file;
                 (*tail)=temp;
                 (*tail)->next=NULL;
                 }
-        else {cout<<"Закончилось место на диске.Прекращаем чтение."<<endl;
-            (*tail)=temp;
-            (*tail)->next=NULL;
-            return;}
+
     }
     cout<<"Данные из файла прочитаны"<<endl;
 
@@ -48,6 +50,5 @@ int main()
 beg->next=NULL;
 disk *tail=beg;
 read_file(&tail);
-cout<<beg->next->name<<" "<<beg->next->size_of_file;
     return 0;
 }
