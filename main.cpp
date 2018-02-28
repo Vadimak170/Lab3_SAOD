@@ -62,11 +62,12 @@ void delete_file(disk **head)
                     p->Empty=1;
                     p->size_of_file=0;
                     p->name.clear();
-                    cout<<"DEL"<<endl;
+                    cout<<"Файл удален."<<endl;return;
                 }
             }
             p=p->next;
         }
+        cout<<"Данного файла не найдено в базе."<<endl;
 }
 void add_file(disk **head, disk **tail)
 {   string temp_name;
@@ -74,18 +75,25 @@ void add_file(disk **head, disk **tail)
 cout<<"Укажите файл, который нужно добавить. Прототип:\n<Имя файла> <Длина в байтах>"<<endl;
 cin>>temp_name>>temp_size;
 disk *temp=(*head)->next;
+disk *temp_for_temp=(*head);
     while(temp)
     {
         if(temp->Empty==1)
             if(temp->size_of_sector>=temp_size)
-            {
-                temp->name=temp_name;
-                temp->size_of_file=temp_size;
-                temp->Empty=0; cout<<"Файл записан в свободный сектор"<<endl; return;
+            {   if(temp->size_of_sector!=temp_size){disk *NewNode=new disk;
+                NewNode->name=temp_name;
+                NewNode->size_of_file=temp_size;
+                NewNode->Empty=0;
+                NewNode->size_of_sector=NewNode->size_of_file;
+                temp->size_of_sector=temp->size_of_sector-temp_size;
+                temp_for_temp->next=NewNode;
+                NewNode->next=temp;}else {temp->Empty=0;temp->name=temp_name;temp->size_of_file=temp_size;}
+                 cout<<"Файл записан в свободный сектор."<<endl; return;
             }
             temp=temp->next;
+            temp_for_temp=temp_for_temp->next;
     }
-    if((size_of_disk-size_of_all)>temp_size) {cout<<"Свободных секторов подходящего размера не найдено.\nПытаемся записать файл в конец"<<endl;
+    if((size_of_disk-size_of_all)>temp_size) {cout<<"Свободных секторов подходящего размера не найдено.\nПытаемся записать файл в конец."<<endl;
                                                  if((size_of_all+temp_size)<size_of_disk) {
                                                 (*tail)->next=new disk;
                                                 (*tail)=(*tail)->next;
@@ -95,7 +103,19 @@ disk *temp=(*head)->next;
                                                 (*tail)->size_of_sector=temp_size;
                                                 (*tail)->next=NULL;
                                                 cout<<"Файл записан в конец."<<endl;} else{cout<<"Не удалось."<<endl;return;}}
-    else cout<<"Свободных секторов подходящего размера не найдено.\nВ конце диска пространства недостаточно"<<endl;
+    else cout<<"Свободных секторов подходящего размера не найдено.\nВ конце диска пространства недостаточно."<<endl;
+}
+void show_all(disk *head)
+{   int i=1;
+    head=head->next;
+    while(head)
+    {
+        cout<<"Сектор "<<i<<":";
+        if(head->Empty==1)cout<<"Cвободный участок памяти размером "<<head->size_of_sector<<" байт"<<endl;
+        else {cout<<"<"<<head->name<<"> SIZE:"<<head->size_of_file<<" байт"<<endl;}
+        i++;
+        head=head->next;
+    }
 }
 int main()
 { setlocale(LC_ALL,"");
@@ -105,6 +125,7 @@ int main()
 read_file(&tail);
 delete_file(&head);
 add_file(&head,&tail);
+show_all(head);
     system("pause");
     return 0;
 }
