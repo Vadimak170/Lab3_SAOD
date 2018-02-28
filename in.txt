@@ -1,43 +1,10 @@
-File1 20
-File2 27
-File3 27
-File4 27
-File5 27
-File6 27
-File7 27
-File8 567
-File9 27
-File10 27
-File11 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
-File2 27
+File1 20 b
+File3 27 kb
+File4 27 b
+File5 27 kb
+File6 27 b
+File7 27 kb
+File8 567 kb
+File9 27 kb
+File10 27 b
+File11 27 kb

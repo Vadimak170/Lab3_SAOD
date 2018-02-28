@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1519832288 source:c:\users\Вадим\documents\saod_lab_2\main.cpp
+1519833857 source:c:\users\Вадим\documents\saod_lab_2\main.cpp
 	<iostream>
 	<fstream>
 	<locale>
+	<cstring>
 
