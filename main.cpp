@@ -74,6 +74,7 @@ void add_file(disk **head, disk **tail)
     int temp_size;
 cout<<"Укажите файл, который нужно добавить. Прототип:\n<Имя файла> <Длина в байтах>"<<endl;
 cin>>temp_name>>temp_size;
+if((temp_size<=18)||(temp_size>=32000)) {cout<<"Файл недопустимого размера."<<endl;return;}
 disk *temp=(*head)->next;
 disk *temp_for_temp=(*head);
     while(temp)
